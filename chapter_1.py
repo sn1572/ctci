@@ -45,28 +45,45 @@ def sol_4(string):
 
 def sol_5(string1, string2):
 
-    def compare(dict1, dict2):
-        diffs = 0
-        for key, val in dict1.items():
-            if key not in dict2:
-                diffs += 1
-            elif dict2[key] != val:
-                diffs += 1
-        return(diffs)
+    def swap(string1, string2):
+        '''
+        Checks if string2 is the same as string1, with
+        at most one character switched. Will return True
+        if the strings are equal.
+        '''
+        if len(string1) != len(string2):
+            return(False)
+        swapped = 0
+        for i, char in enumerate(string1):
+            if string2[i] != char:
+                swapped += 1
+            if swapped > 1:
+                return(False)
+        return(True)
 
-    def get_char_dict(string):
-        char_dict = defaultdict(int)
-        for char in string:
-            char_dict[char] += 1
-        return(char_dict)
+    def add(string1, string2):
+        '''
+        Checks if string2 is equal to string1 with
+        an added character.
+        '''
+        if len(string1)+1 != len(string2):
+            return(False)
+        skip = 0
+        for i, char in enumerate(string1):
+            if char != string2[i+skip]:
+                skip += 1
+            if skip > 1:
+                return(False)
+        return(True)
 
-    char_dict_1 = get_char_dict(string1)
-    char_dict_2 = get_char_dict(string2)
-    diffs = compare(char_dict_1, char_dict_2)
-    if diffs > 1:
-        return False
-    diffs += compare(char_dict_2, char_dict_1)
-    if diffs > 1:
-        return(False)
-    return(True)
-    
+    def delete(string1, string2):
+        '''
+        Checks if string2 is equal to string1 with
+        one deleted character.
+        '''
+        if len(string1) < len(string2):
+            string1, string2 = string2, string1
+        return(add(string2, string1))
+
+    return(swap(string1, string2) or add(string1, string2) or delete(string1,
+                                                                     string2))

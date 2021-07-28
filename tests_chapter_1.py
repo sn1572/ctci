@@ -62,6 +62,13 @@ class Test_Sol_5(unittest.TestCase):
     def test_4(self):
         self.assertEqual(sol_5('pale', 'bake'), False)
 
+    def test_5(self):
+        self.assertEqual(sol_5('', 'a'), True)
+
+    def test_6(self):
+        self.assertEqual(sol_5('ahawe4ot7awoegf',
+                               'ahawe4otawoegf'), True)
+
 
 
 if __name__ == '__main__':
